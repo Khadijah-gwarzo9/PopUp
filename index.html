@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Progress Steps</title>
+    <style>
+      .progress-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+      }
+
+      .step {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        color: white;
+        position: relative;
+      }
+
+      .step.active {
+        background-color: #007bff;
+      }
+
+      .step::before {
+        content: "";
+        width: 100%;
+        height: 2px;
+        background-color: #ccc;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: -50%;
+        z-index: -1;
+      }
+
+      .step:first-child::before {
+        display: none;
+      }
+
+      .step.active::before {
+        background-color: #007bff;
+      }
+
+      .btn-container {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress-container">
+      <div class="step active">1</div>
+      <div class="step">2</div>
+      <div class="step">3</div>
+      <div class="step">4</div>
+      <div class="step">5</div>
+    </div>
+
+    <div class="btn-container">
+      <button class="btn" onclick="previousStep()">Previous</button>
+      <button class="btn" onclick="nextStep()">Next</button>
+    </div>
+
+    <script>
+      const steps = document.querySelectorAll(".step");
+      let currentStep = 0;
+
+      function updateProgress() {
+        steps.forEach((step, index) => {
+          if (index === currentStep) {
+            step.classList.add("active");
+          } else {
+            step.classList.remove("active");
+          }
+        });
+      }
+
+      function previousStep() {
+        if (currentStep > 0) {
+          currentStep--;
+          updateProgress();
+        }
+      }
+
+      function nextStep() {
+        if (currentStep < steps.length - 1) {
+          currentStep++;
+          updateProgress();
+        }
+      }
+    </script>
+  </body>
+</html>
